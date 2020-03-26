@@ -1,0 +1,27 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Выполнение SQL запроса</h1>
+        </div>
+        <form method="post">
+            <div class="page__header">Вы собираетесь выполнить пользовательский SQL-запрос. Убедитесь что он верный и не ломайте, пожалуйста, базу данных. Запросы введённые на этой странице никак не фильтруются!</div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Запрос:</span>
+                </div>
+                <div><textarea name="sql"></textarea></div>
+            </div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Выполнить</button>
+            </div>
+        </form>
+    </div>
+</div>

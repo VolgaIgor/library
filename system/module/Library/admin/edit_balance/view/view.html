@@ -1,0 +1,35 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Изменить средства на балансе</h1>
+            <div class="page__header__back">
+                <a href="/user/<?php echo $data['user']->getId(); ?>">&lt; К личному кабинету пользователя</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Пользователь:</span>
+                </div>
+                <div><?php echo $data['user']->getLogin(); ?></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Баланс:</span>
+                </div>
+                <div><input type="number" name="sum" maxlength="10" value="<?php echo $data['user_balance']; ?>"></div>
+            </div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Изменить</button>
+            </div>
+        </form>
+    </div>
+</div>

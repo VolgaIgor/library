@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo ( ( isset( $data['title'] ) ) ? $data['title'] : '' ) . ' — ' . PROJECT_NAME; ?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/style/style_login.css"/>
+        <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
+        <script src="/script/js_login.js"></script>
+    </head>
+    <body>
+        <div class="background"></div>
+        <div class="center">
+            <div class="main">
+                <div>
+                <?php if (isset($data['backpath'])) { ?> <a href="<?php echo $data['backpath']; ?>" title="Вернуться назад" class="return__button"></a> <?php } ?>
+                <div class="main__block">
+                    <div class="main__block__container">
+                        <?php if (isset($data['err'])) { ?>
+                        <div class="err-block">
+                            <?php echo $data['err']; ?>
+                        </div>
+                        <?php } ?>
+                        <?php if (isset($data['content'])) echo $data['content']; ?>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer__left">
+                <a href="#">Учебный проект</a>
+            </div>
+            <div class="footer__right">
+                <a href="#">GitHub</a>
+                <span>© Шувалов Игорь, 2020</span>
+            </div>
+        </div>
+    </body>
+</html>

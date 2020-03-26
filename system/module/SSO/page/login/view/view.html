@@ -1,0 +1,34 @@
+<div class="header-link">
+    <a id="register_link" href="/register?<?php if (isset($data['retpath'])) echo 'retpath=' . urlencode($data['retpath']); if (isset($data['backpath'])) echo '&backpath=' . urlencode($data['backpath']); ?>" class="header-link__register">Зарегистрироваться</a>
+    <div class="logo">
+        <div class="logo__img"><img src="/image/preview_logo.png"></div>
+    </div>
+</div>
+<div class="info">
+    <div class="info__desc">Вы входите на:</div>
+    <div class="info__target__text"><?php echo $data['retname']; ?></div>
+    <div class="info__target__domain">
+        <span class="info__target__domain__logo logo_acnt"></span>
+        <?php echo $data['returl']; ?>
+    </div>
+</div>
+<form method="post">
+    <div class="inputs">
+        <div class="login__input">
+            <input id="input-login" name="login" type="text" value="<?php if (isset($data['login'])) echo $data['login']; ?>" required autofocus>
+            <label for="input-login">Введите логин</label>
+        </div>
+        <div class="login__input">
+            <div class="login__input__eye"></div>
+            <input id="input-pass" name="pass" type="password" required>
+            <label for="input-pass">Введите пароль</label>
+        </div>
+        <div class="login__button">
+            <button id="login_button" type="submit">Войти</button>
+        </div>
+    </div>
+</form>
+<hr>
+<div class="incognito-notice">
+    Работая на чужом устройстве используйте режим инкогнито
+</div>

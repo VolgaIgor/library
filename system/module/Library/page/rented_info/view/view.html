@@ -1,0 +1,63 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Информация об аренде</h1>
+            <div class="page__header__back">
+                <a href="/user/<?php echo $data['user']->getId(); ?>">&lt; К личному кабинету</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Пользователь:</span>
+                </div>
+                <div><?php echo $data['user']->getLogin(); ?></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Книга:</span>
+                </div>
+                <div><a href="/bookInfo/<?php echo $data['book']->getID(); ?>" target="_blank"><?php echo $data['book']->getName(); ?></a></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Арендована:</span>
+                </div>
+                <div><?php echo date( 'H:i:s d.m.Y', $data['rent_info']['date_create'] ); ?></div>
+            </div>
+            <?php if ( !empty( $data['rent_info']['date_returned'] ) ) { ?>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Возвращена:</span>
+                </div>
+                <div><?php echo date( 'H:i:s d.m.Y', $data['rent_info']['date_returned'] ); ?></div>
+            </div>
+            <?php } ?>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Максимальное время аренды (в днях):</span>
+                </div>
+                <div><?php echo $data['category']->getExpirationDay(); ?></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Штраф за просрочку (в день):</span>
+                </div>
+                <div><?php echo $data['category']->getFinePerDay(); ?></div>
+            </div>
+            <?php if ( ( !empty( $data['authUser'] ) || !empty( $data['admin'] ) ) && empty( $data['rent_info']['date_returned'] ) ) { ?>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Вернуть</button>
+            </div>
+            <?php } ?>
+        </form>
+    </div>
+</div>

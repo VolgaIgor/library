@@ -1,0 +1,37 @@
+<div class="center__left">
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Книги изданные в <?php echo $data['year']; ?> году:</h1>
+            <div class="page__header__back">
+                <a href="/yearList">&lt; К списку годов</a>
+            </div>
+        </div>
+        <?php if ( !empty( $data['book_list'] ) ) { ?>
+        <div class="book_list">
+            <?php foreach ($data['book_list'] as $book) { ?>
+            <a href="/bookInfo/<?php echo $book['id']; ?>" class="book_example">
+                <span class="book_example_name"><?php echo $book['name']; ?></span>
+                <?php if ( !empty( $book['author_list'] ) ) { ?>
+                <span class="book_example_author"><?php echo implode( ', ', $book['author_list'] ); ?></span>
+                <?php } ?>
+                <span class="book_example_isbn">ISBN <?php echo $book['isbn']; ?></span>
+                <span class="book_example_pub">
+                    <?php 
+                    if ( !empty( $book['publisher_name'] ) ) { 
+                        echo $book['publisher_name'] . ', ';
+                    }
+                    echo $book['year'] . ' г.';
+                    ?>
+                </span>
+                <div>
+                    <?php if ( $book['count_available'] > 0 ) { ?>
+                    <div class="book_example_button">Взять</div>
+                    <?php } ?>
+                    <span class="book_example_avilable">Доступно: <?php echo $book['count_available']; ?></span>
+                </div>
+            </a>
+            <?php } ?>
+        </div>
+        <?php } ?>
+    </div>
+</div>

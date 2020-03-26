@@ -1,0 +1,94 @@
+<div class="center__left">
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Информация о книге</h1>
+            <div class="page__header__back">
+                <a href="/bookList">&lt; К списку книг</a>
+            </div>
+        </div>
+        <h2 class="book__info__name"><?php echo $data['book']['name']; ?></h2>
+        <?php if ( !empty( $data['book']['desc'] ) ) { ?>
+        <div class="book__info__desc"><?php echo $data['book']['desc']; ?></div>
+        <?php } ?>
+        <table>
+            <?php if ( isset( $data['book']['authors'] ) ) { ?>
+            <tr>
+                <th>Автор: </th>
+                <td>
+                    <?php foreach ( $data['book']['authors'] as $author) { ?>
+                    <a class="book__info__author" href="/author/<?php echo $author['id']; ?>"><?php echo $author['name']; ?></a>
+                    <?php } ?>
+                </td>
+            </tr>
+            <?php } ?>
+            <?php if ( isset( $data['book']['publisher_name'] ) ) { ?>
+            <tr>
+                <th>Издатель: </th>
+                <td><a href="/publisher/<?php echo $data['book']['publisher_id']; ?>"><?php echo $data['book']['publisher_name']; ?></a></td>
+            </tr>
+            <?php } ?>
+            <?php if ( isset( $data['book']['category_name'] ) ) { ?>
+            <tr>
+                <th>Категория: </th>
+                <td><a href="/category/<?php echo $data['book']['category_id']; ?>"><?php echo $data['book']['category_name']; ?></a></td>
+            </tr>
+            <?php } ?>
+            <tr>
+                <th>Год: </th>
+                <td><a href="/year/<?php echo $data['book']['year']; ?>"><?php echo $data['book']['year']; ?></a></td>
+            </tr>
+            <tr>
+                <th>ISBN: </th>
+                <td><?php echo $data['book']['isbn']; ?></td>
+            </tr>
+            <?php if ( isset( $data['book']['count_available'] ) ) { ?>
+            <tr>
+                <th>В библиотеке: </th>
+                <td><?php echo $data['book']['count_available']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+    <?php if ( isset( $data['book']['copies'] ) ) { ?>
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Позиции в библиотеке</h1>
+        </div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Место</th>
+                <th>В наличии</th>
+            </tr>
+            <?php foreach ( $data['book']['copies'] as $copy) { ?>
+            <tr>
+                <td><a href="/admin/bookCopy/<?php echo $copy['id']; ?>"><?php echo $copy['id']; ?></a></td>
+                <td><?php echo $copy['place']; ?></td>
+                <td><?php echo ($copy['available']) ? 'Да' : 'Нет'; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+    <?php } ?>
+</div>
+<div class="center__right">
+    <?php if ( !empty( $data['book']['count_available'] ) ) { ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия</div>
+        <a href="/rentBook/<?php echo $data['book']['id']; ?>" class="admin__right__button blue">Взять книгу</a>
+    </div>
+    <?php } ?>
+    <?php if ( !empty( $data['admin'] ) ) {  ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия администратора</div>
+        <a href="/admin/createBook" class="admin__right__button blue">Создать книгу</a>
+        <a href="/admin/editBook/<?php echo $data['book']['id']; ?>" class="admin__right__button green">Редактировать информацию о книге</a>
+        <a href="/admin/deleteBook/<?php echo $data['book']['id']; ?>" class="admin__right__button red">Удалить книгу</a>
+    </div>
+    <div class="center__right__block"> 
+        <div class="right__block__header"></div>
+        <a href="/admin/createBookCopy/<?php echo $data['book']['id']; ?>" class="admin__right__button green">Добавить копию книги на склад</a>
+        <a href="/admin/leaseBookCopy/<?php echo $data['book']['id']; ?>" class="admin__right__button blue">Выдать копию книги читателю</a>
+    </div>
+    <?php } ?>
+</div>

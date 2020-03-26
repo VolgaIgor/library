@@ -1,0 +1,11 @@
+ErrorDocument 404 /404
+ErrorDocument 500 /500
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [QSA,R=301]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([\w\/А-Яа-яёЁ-]*)(?:[?](.*))?$ index.php?_route_=$1&$2 [L,QSA]

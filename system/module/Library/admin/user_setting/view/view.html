@@ -1,0 +1,70 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Общие настройки</h1>
+            <div class="page__header__back">
+                <a href="/user/<?php echo $data['user']->getId(); ?>">&lt; К личному кабинету пользователя</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Пользователь:</span>
+                </div>
+                <div><?php echo $data['user']->getLogin(); ?></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Имя:</span>
+                </div>
+                <div><input type="text" name="name" maxlength="100" value="<?php echo $data['user']->getRealName(); ?>"></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Группы:</span>
+                </div>
+                <div>
+                    <select name="groups[]" multiple required>
+                        <?php foreach ( $data['groups'] as $group ) { ?>
+                        <option <?php if (in_array($group, $data['user_groups'])) echo 'selected'; ?> value="<?php echo $group; ?>"><?php echo $group; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit" name="general" value="1">Сохранить</button>
+            </div>
+        </form>
+    </div>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Изменить пароль</h1>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Новый пароль:</span>
+                </div>
+                <div><input type="password" name="new_pass" maxlength="100" value=""></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Повторите новый пароль:</span>
+                </div>
+                <div><input type="password" name="new_pass_2" maxlength="100" value=""></div>
+            </div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit" name="password" value="1">Изменить</button>
+            </div>
+        </form>
+    </div>
+</div>

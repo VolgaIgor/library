@@ -1,0 +1,17 @@
+<div class="center__left">
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Удаление автора</h1>
+            <div class="page__header__back">
+                <a href="/author/<?php echo $data['author']->getID(); ?>">&lt; К автору</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__header">Вы пытаетесь удалить автора <b><a href="/author/<?php echo $data['author']->getID(); ?>"><?php echo $data['author']->getName(); ?></a></b>. Данное действие необратимо, вы уверены?</div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Удалить</button>
+            </div>
+        </form>
+    </div>
+</div>

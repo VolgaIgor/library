@@ -1,0 +1,30 @@
+<div class="center__left">
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Редактирование информации об издателе</h1>
+            <div class="page__header__back">
+                <a href="/publisher/<?php echo $data['publisher']->getID(); ?>">&lt; К издателю</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Название:</span>
+                </div>
+                <div><input type="text" name="name" maxlength="100" value="<?php echo $data['publisher']->getName(); ?>"></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Описание:</span>
+                </div>
+                <div>
+                    <textarea name="desc"><?php if (!empty($data['publisher']->getDescription())) echo $data['publisher']->getDescription(); ?></textarea>
+                </div>
+            </div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>

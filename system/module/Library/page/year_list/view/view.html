@@ -1,0 +1,20 @@
+<div class="center__left">
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Список выпуска книг по годам</h1>
+        </div>
+        <?php if ( !empty( $data['year_list'] ) ) { ?>
+        <table>
+            <tr>
+                <th>Год</th><td>Выпущено книг</td>
+            </tr>
+            <?php foreach ($data['year_list'] as $year) { ?>
+            <tr>
+                <th><a href="/year/<?php echo $year['year']; ?>"><?php echo $year['year']; ?></a></th>
+                <td><?php echo $year['count_books']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+        <?php } ?>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="center__left">
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Удаление копии книги</h1>
+            <div class="page__header__back">
+                <a href="/admin/bookCopy/<?php echo $data['book_copy_id']; ?>">&lt; К копии книги</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__header">Вы пытаетесь удалить копию <b><a href="/admin/bookCopy/<?php echo $data['book_copy_id']; ?>">№<?php echo $data['book_copy_id']; ?></a></b> книги <b><a href="/bookInfo/<?php echo $data['book_id']; ?>">«<?php echo $data['book_name']; ?>»</a></b>. Данное действие необратимо, вы уверены?</div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Удалить</button>
+            </div>
+        </form>
+    </div>
+</div>

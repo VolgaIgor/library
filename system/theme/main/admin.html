@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?php echo ( ( isset( $data['title'] ) ) ? $data['title'] : PROJECT_NAME ); ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style/style.css" />
+    <link rel="stylesheet" type="text/css" href="/style/admin_style.css" />
+    <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700&amp;subset=cyrillic,cyrillic-ext,latin-ext">
+</head>
+<body>
+    <div id="errors"></div>
+    <div id="header">
+        <div id="header-center">
+            <div id="header-logo">
+                <a href="/admin">
+                    <img src="/image/logo.png" alt="Админпанель">
+                </a>
+            </div>
+            <div id="header-nav">
+                <ul>
+                    <li><a href="/">На главную</a></li>
+                    <li><a href="/admin/userList">Пользователи</a></li>
+                </ul>
+            </div>
+            <div id="header-menu-button">
+                <a class="header__button" href="/logout">Выход</a>
+            </div>
+        </div>
+    </div>
+    <div id="center">    
+        <?php echo ( ( isset( $data['content'] ) ) ? $data['content'] : '' ); ?>
+    </div>
+</body>
+</html>

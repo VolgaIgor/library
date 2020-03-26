@@ -1,0 +1,28 @@
+<div class="center__left">
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Список авторов</h1>
+        </div>
+        <?php if ( !empty( $data['author_list'] ) ) { ?>
+        <table>
+            <tr>
+                <th>Имя</th><td>Написал книг</td>
+            </tr>
+            <?php foreach ($data['author_list'] as $author) { ?>
+            <tr>
+                <th><a href="/author/<?php echo $author['id']; ?>"><?php echo $author['name']; ?></a></th>
+                <td><?php echo $author['count_books']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+        <?php } ?>
+    </div>
+</div>
+<div class="center__right">
+    <?php if ( !empty( $data['admin'] ) ) {  ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия</div>
+        <a href="/admin/createAuthor" class="admin__right__button blue">Добавить автора</a>
+    </div>
+    <?php } ?>
+</div>

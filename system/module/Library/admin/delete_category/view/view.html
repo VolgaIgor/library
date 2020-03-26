@@ -1,0 +1,17 @@
+<div class="center__left">
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Удаление категории</h1>
+            <div class="page__header__back">
+                <a href="/category/<?php echo $data['category']->getID(); ?>">&lt; К категории</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__header">Вы пытаетесь удалить категорию <b><a href="/category/<?php echo $data['category']->getID(); ?>">«<?php echo $data['category']->getName(); ?>»</a></b>. Данное действие необратимо, вы уверены? Если в данной категории ещё находятся книги, удалить её не получится.</div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Удалить</button>
+            </div>
+        </form>
+    </div>
+</div>

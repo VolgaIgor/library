@@ -1,0 +1,22 @@
+<div class="center__left">
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Список пользователей</h1>
+        </div>
+        <?php if ( !empty( $data['user_list'] ) ) { ?>
+        <table>
+            <tr>
+                <th>ID</th><th>Логин</th><th>Имя</th><th>Дата регистрации</th>
+            </tr>
+            <?php foreach ($data['user_list'] as $user) { ?>
+            <tr>
+                <td><a href="/user/<?php echo $user['id']; ?>"><?php echo $user['id']; ?></a></td>
+                <td><?php echo $user['login']; ?></td>
+                <td><?php echo $user['real_name']; ?></td>
+                <td><?php echo $user['register']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+        <?php } ?>
+    </div>
+</div>

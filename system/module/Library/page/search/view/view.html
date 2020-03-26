@@ -1,0 +1,116 @@
+<div class="center__left">
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Поиск:</h1>
+        </div>
+        <div>
+            <form class="page__search"  method="get" action="/search">
+                <input class="page__search__input" name="q" type="search" placeholder="Поиск..." value="<?php echo $data['query']; ?>">
+                <input class="page__search__submit" type="submit" title="Поиск" value="">
+            </form>
+        </div>
+    </div>
+    <?php if ( !empty( $data['books_by_name'] ) ) { ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Найденные книги по названию:</h1>
+        </div>
+        <div class="book_list">
+            <?php foreach ($data['books_by_name'] as $book) { ?>
+            <a href="/bookInfo/<?php echo $book['id']; ?>" class="book_example">
+                <span class="book_example_name"><?php echo $book['name']; ?></span>
+                <?php if ( !empty( $book['author_list'] ) ) { ?>
+                <span class="book_example_author"><?php echo implode( ', ', $book['author_list'] ); ?></span>
+                <?php } ?>
+                <span class="book_example_isbn">ISBN <?php echo $book['isbn']; ?></span>
+                <span class="book_example_pub">
+                    <?php 
+                    if ( !empty( $book['publisher_name'] ) ) { 
+                        echo $book['publisher_name'] . ', ';
+                    }
+                    echo $book['year'] . ' г.';
+                    ?>
+                </span>
+                <div>
+                    <?php if ( $book['count_available'] > 0 ) { ?>
+                    <div class="book_example_button">Взять</div>
+                    <?php } ?>
+                    <span class="book_example_avilable">Доступно: <?php echo $book['count_available']; ?></span>
+                </div>
+            </a>
+            <?php } ?>
+        </div>
+    </div>
+    <?php } ?>
+    <?php if ( !empty( $data['books_by_year'] ) ) { ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Книги изданные в <?php echo $data['query']; ?> году:</h1>
+            <div class="page__header__back">
+                <a href="/year/<?php echo $data['query']; ?>">&lt; К полному списку</a>
+            </div>
+        </div>
+        <div class="book_list">
+            <?php foreach ($data['books_by_year'] as $book) { ?>
+            <a href="/bookInfo/<?php echo $book['id']; ?>" class="book_example">
+                <span class="book_example_name"><?php echo $book['name']; ?></span>
+                <?php if ( !empty( $book['author_list'] ) ) { ?>
+                <span class="book_example_author"><?php echo implode( ', ', $book['author_list'] ); ?></span>
+                <?php } ?>
+                <span class="book_example_isbn">ISBN <?php echo $book['isbn']; ?></span>
+                <span class="book_example_pub">
+                    <?php 
+                    if ( !empty( $book['publisher_name'] ) ) { 
+                        echo $book['publisher_name'] . ', ';
+                    }
+                    echo $book['year'] . ' г.';
+                    ?>
+                </span>
+                <div>
+                    <?php if ( $book['count_available'] > 0 ) { ?>
+                    <div class="book_example_button">Взять</div>
+                    <?php } ?>
+                    <span class="book_example_avilable">Доступно: <?php echo $book['count_available']; ?></span>
+                </div>
+            </a>
+            <?php } ?>
+        </div>
+    </div>
+    <?php } ?>
+    <?php if ( !empty( $data['author_list'] ) ) { ?>
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Совпадения по имени авторов</h1>
+        </div>
+        <table>
+            <tr>
+                <th>Имя</th><td>Написал книг</td>
+            </tr>
+            <?php foreach ($data['author_list'] as $author) { ?>
+            <tr>
+                <th><a href="/author/<?php echo $author['id']; ?>"><?php echo $author['name']; ?></a></th>
+                <td><?php echo $author['count_books']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+    <?php } ?>
+    <?php if ( !empty( $data['publisher_list'] ) ) { ?>
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Совпадения по названию издателей</h1>
+        </div>
+        <table>
+            <tr>
+                <th>Название</th><td>Издал книг</td>
+            </tr>
+            <?php foreach ($data['publisher_list'] as $publisher) { ?>
+            <tr>
+                <th><a href="/publisher/<?php echo $publisher['id']; ?>"><?php echo $publisher['name']; ?></a></th>
+                <td><?php echo $publisher['count_books']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+    <?php } ?>
+</div>

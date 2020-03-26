@@ -1,0 +1,41 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Добавление копии книги</h1>
+            <div class="page__header__back">
+                <a href="/bookInfo/<?php echo $data['book_id']; ?>">&lt; К книге</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Книга:</span>
+                </div>
+                <div><a target="_blank" href="/bookInfo/<?php echo $data['book_id']; ?>"><?php echo $data['book_name']; ?></a></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Место:</span>
+                </div>
+                <div><input type="number" name="place" maxlength="10" value="" required></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Доступность:</span>
+                </div>
+                <div><input type="checkbox" name="available" checked></div>
+            </div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Создать</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="error_page">
+    <div class="travolta_error"></div>
+    <div class="travolta_cloud">
+        <span class="travolta_num">404</span>
+        <span class="travolta_desc">Страница не найдена</span>
+    </div>
+</div>
+<script>
+window.onload = function() {
+    document.onmousemove = function(e) {
+        var frame = Math.floor( e.pageX / ( screen.width / 26 ) ) ;
+        if ( frame < 0 ) frame = 0;
+        if ( frame > 26 ) frame = 25;
+        var elem = document.querySelector( '.travolta_error' );
+        if ( elem !== undefined ) {
+            elem.style.backgroundPositionX = -(frame * 510) + 'px';
+        }
+    }
+
+    document.addEventListener('touchmove', function(event) {
+        var frame = Math.floor( event.changedTouches[0].pageX / ( screen.width / 26 ) ) ;
+        if ( frame < 0 ) frame = 0;
+        if ( frame > 26 ) frame = 25;
+        var elem = document.querySelector( '.travolta_error' );
+        if ( elem !== undefined ) {
+            elem.style.backgroundPositionX = -(frame * 510) + 'px';
+        }
+    }, false);
+}
+</script>

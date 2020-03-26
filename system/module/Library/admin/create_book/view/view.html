@@ -1,0 +1,89 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Добавление книги</h1>
+            <div class="page__header__back">
+                <a href="/bookList">&lt; К списку книг</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Название:</span>
+                </div>
+                <div><input type="text" name="name" maxlength="100" value="" required></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Год издания:</span>
+                </div>
+                <div><input type="number" name="year" maxlength="4" value="" required></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>ISBN:</span>
+                </div>
+                <div><input type="text" name="isbn" maxlength="10" value="" required></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Описание:</span>
+                </div>
+                <div>
+                    <textarea name="desc"></textarea>
+                </div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Категория:</span>
+                    <span class="setting__name__desc"><a target="_blank" href="/admin/createCategory">Добавить категорию</a></span>
+                </div>
+                <div>
+                    <select name="category" required>
+                        <?php foreach ( $data['categories_list'] as $category ) { ?>
+                        <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Издатель:</span>
+                    <span class="setting__name__desc"><a target="_blank" href="/admin/createPublisher">Добавить издателя</a></span>
+                </div>
+                <div>
+                    <select name="publisher">
+                        <option value="0">[ Не задан ]</option>
+                        <?php foreach ( $data['publishers_list'] as $publisher ) { ?>
+                        <option value="<?php echo $publisher['id']; ?>"><?php echo $publisher['name']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Авторы:</span>
+                    <span class="setting__name__desc"><a target="_blank" href="/admin/createAuthor">Добавить автора</a></span>
+                </div>
+                <div>
+                    <select name="authors[]" multiple>
+                        <?php foreach ( $data['authors_list'] as $author ) { ?>
+                        <option value="<?php echo $author['id']; ?>"><?php echo $author['name']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Создать</button>
+            </div>
+        </form>
+    </div>
+</div>

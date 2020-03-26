@@ -1,0 +1,28 @@
+<div class="center__left">
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Список категорий</h1>
+        </div>
+        <?php if ( !empty( $data['category_list'] ) ) { ?>
+        <table>
+            <tr>
+                <th>Название</th><td>Книг в категории</td>
+            </tr>
+            <?php foreach ($data['category_list'] as $category) { ?>
+            <tr>
+                <th><a href="/category/<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></th>
+                <td><?php echo $category['count_books']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+        <?php } ?>
+    </div>
+</div>
+<div class="center__right">
+    <?php if ( !empty( $data['admin'] ) ) {  ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия</div>
+        <a href="/admin/createCategory" class="admin__right__button blue">Добавить категорию</a>
+    </div>
+    <?php } ?>
+</div>

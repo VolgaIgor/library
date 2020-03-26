@@ -1,0 +1,113 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Читатель</h1>
+            <?php if ( !empty( $data['admin'] ) ) { ?>
+            <div class="page__header__back">
+                <a href="/admin/userList">&lt; К списку пользователей</a>
+            </div>
+            <?php } ?>
+        </div>
+        <table>
+            <tr>
+                <th>Логин: </th>
+                <td><?php echo $data['user']['login']; ?></td>
+            </tr>
+            <?php if ( !empty( $data['user']['real_name'] ) ) { ?>
+            <tr>
+                <th>Имя: </th>
+                <td><?php echo $data['user']['real_name']; ?></td>
+            </tr>
+            <?php } ?>
+            <tr>
+                <th>Дата регистрации: </th>
+                <td><?php echo $data['user']['register']; ?></td>
+            </tr>
+            <?php if ( isset( $data['user']['balance'] ) ) { ?>
+            <tr>
+                <th>Баланс: </th>
+                <td><?php echo $data['user']['balance']; ?></td>
+            </tr>
+            <?php } ?>
+            <tr>
+                <th>Заблокирован: </th>
+                <td><?php echo ( $data['user']['blocked'] ) ? 'Да' : 'Нет'; ?></td>
+            </tr>
+            <?php if ( isset( $data['user']['groups'] ) ) { ?>
+            <tr>
+                <th>Группы: </th>
+                <td><?php echo $data['user']['groups']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+    </div>
+    <?php if ( !empty( $data['authUser'] ) || !empty( $data['admin'] ) ) { ?>
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>История чтения книг</h1>
+        </div>
+        <table>
+            <tr>
+                <th>ID транзакции</th>
+                <th>Книга</th>
+                <th>Дата выдачи</th>
+                <th>Дата возвращения</th>
+            </tr>
+            <?php if ( !empty( $data['user_leases'] ) ) { ?>
+            <?php foreach ( $data['user_leases'] as $lease ) { ?>
+            <tr>
+                <td><a href="/rentedInfo/<?php echo $lease['id']; ?>"><?php echo $lease['id']; ?></a></td>
+                <td><?php echo "<a href=\"/bookInfo/{$lease['book_copy']->getBook()->getID()}\">«{$lease['book_copy']->getBook()->getName()}»</a> ({$lease['book_copy']->getID()})"; ?></td>
+                <td><?php echo $lease['date_create']; ?></td>
+                <td><?php echo ( ( !empty( $lease['date_returned'] ) ) ? $lease['date_returned'] : 'Не возвращена' ); ?></td>
+            </tr>
+            <?php } ?>
+            <?php } ?>
+        </table>
+    </div>
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>История баланса</h1>
+        </div>
+        <table>
+            <tr>
+                <th>ID транзакции</th>
+                <th>Разница</th>
+                <th>Дата</th>
+            </tr>
+            <?php if ( !empty( $data['user_balance_log'] ) ) { ?>
+            <?php foreach ( $data['user_balance_log'] as $balance_log ) { ?>
+            <tr>
+                <td><?php echo $balance_log['id']; ?></td>
+                <td><?php echo $balance_log['amount']; ?></td>
+                <td><?php echo $balance_log['date']; ?></td>
+            </tr>
+            <?php } ?>
+            <?php } ?>
+        </table>
+    </div>
+    <?php } ?>
+</div>
+<div class="center__right">
+    <?php if ( !empty( $data['authUser'] ) ) {  ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия</div>
+        <a href="/user/setting" class="admin__right__button blue">Настройки</a>
+        <a href="/user/addBalance" class="admin__right__button green">Зачислить средства</a>
+    </div>
+    <?php } ?>
+    <?php if ( !empty( $data['admin'] ) ) {  ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия администратора</div>
+        <a href="/admin/editUser/<?php echo $data['user']['id']; ?>" class="admin__right__button blue">Настройки пользователя</a>
+        <a href="/admin/editBalance/<?php echo $data['user']['id']; ?>" class="admin__right__button green">Изменить баланс</a>
+    </div>
+    <?php } ?>
+</div>

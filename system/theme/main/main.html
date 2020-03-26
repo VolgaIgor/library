@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><?php echo ( ( isset( $data['title'] ) ) ? $data['title'] : PROJECT_NAME ); ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style/style.css" />
+    <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,700&amp;subset=cyrillic,cyrillic-ext,latin-ext">
+    <script src="/script/js.js"></script>
+</head>
+<body>
+    <div id="header">
+        <div id="header-center">
+            <div id="header-logo">
+                <a href="/">
+                    <img src="/image/logo.png" alt="Проект">
+                </a>
+            </div>
+            <div id="header-nav">
+                <ul>
+                    <li></li>
+                </ul>
+                <div id="header-search">
+                    <form method="get" action="/search">
+                        <input id="header-search-input" name="q" type="search" placeholder="Поиск...">
+                        <input id="header-search-submit" type="submit" title="Поиск" value="">
+                    </form>
+                </div>
+            </div>
+            <div id="header-menu-button">
+                <div class="lines">
+                    <div class="line top"></div>
+                    <div class="line center"></div>
+                    <div class="line bottom"></div>
+                </div>
+                <div id="header-user">
+                    <?php if ( $this->env->auth->isAuth() ) { ?>
+                    <a href="/user/<?php echo $this->env->auth->getUser()->getId(); ?>">
+                        <div id="header-user-login"></div>
+                    </a>
+                    <?php } else { ?>
+                    <a href="/login?path=<?php echo getURL() . $_SERVER['REQUEST_URI']; ?>">
+                        <div id="header-user-login"></div>
+                    </a>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <div id="header-menu">
+            <ul>
+                <li>
+                    <ul>
+                        <li><a href="/bookList">Список книг</a></li>
+                        <li><a href="/yearList">Список книг по годам</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <ul>
+                        <li><a href="/authorList">Список авторов</a></li>
+                        <li><a href="/publisherList">Список издателей</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <ul>
+                        <li><a href="/categoryList">Список категорий</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <ul>
+                        <li><br></li>
+                        <li><br></li>
+                    </ul>
+                </li>
+                <li>
+                    <?php if ( $this->env->auth->isAuth() ) { ?>
+                    <a href="/user/<?php echo $this->env->auth->getUser()->getId(); ?>"><?php echo $this->env->auth->getUser()->getLogin(); ?></a>
+                    <ul>
+                        <li><a href="/logout">Выход</a></li>
+                    </ul>
+                    <?php } else { ?>
+                    <ul>
+                        <li><a href="/login">Вход</a></li>
+                        <li><a href="/register">Регистрация</a></li>
+                    </ul>
+                    <?php } ?>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="center">    
+        <?php echo ( ( isset( $data['content'] ) ) ? $data['content'] : '' ); ?>
+    </div>
+</body>
+</html>

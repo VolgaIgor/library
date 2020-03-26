@@ -1,0 +1,56 @@
+<div class="center__left">
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Автор</h1>
+            <div class="page__header__back">
+                <a href="/authorList">&lt; К списку авторов</a>
+            </div>
+        </div>
+        <h2 class="book__info__name"><?php echo $data['author_name']; ?></h2>
+        <?php if ( !empty( $data['author_desc'] ) ) { ?>
+        <div class="book__info__desc"><?php echo $data['author_desc']; ?></div>
+        <?php } ?>
+    </div>
+    <?php if ( !empty( $data['book_list'] ) ) { ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Книги данного автора</h1>
+        </div>
+        <div class="book_list">
+            <?php foreach ($data['book_list'] as $book) { ?>
+            <a href="/bookInfo/<?php echo $book['id']; ?>" class="book_example">
+                <span class="book_example_name"><?php echo $book['name']; ?></span>
+                <?php if ( !empty( $book['author_list'] ) ) { ?>
+                <span class="book_example_author"><?php echo implode( ', ', $book['author_list'] ); ?></span>
+                <?php } ?>
+                <span class="book_example_isbn">ISBN <?php echo $book['isbn']; ?></span>
+                <span class="book_example_pub">
+                    <?php 
+                    if ( !empty( $book['publisher_name'] ) ) { 
+                        echo $book['publisher_name'] . ', ';
+                    }
+                    echo $book['year'] . ' г.';
+                    ?>
+                </span>
+                <div>
+                    <?php if ( $book['count_available'] > 0 ) { ?>
+                    <div class="book_example_button">Взять</div>
+                    <?php } ?>
+                    <span class="book_example_avilable">Доступно: <?php echo $book['count_available']; ?></span>
+                </div>
+            </a>
+            <?php } ?>
+        </div>
+    </div>
+    <?php } ?>
+</div>
+<div class="center__right">
+    <?php if ( !empty( $data['admin'] ) ) {  ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия</div>
+        <a href="/admin/createAuthor" class="admin__right__button blue">Добавить автора</a>
+        <a href="/admin/editAuthor/<?php echo $data['author_id']; ?>" class="admin__right__button green">Редактировать автора</a>
+        <a href="/admin/deleteAuthor/<?php echo $data['author_id']; ?>" class="admin__right__button red">Удалить автора</a>
+    </div>
+    <?php } ?>
+</div>

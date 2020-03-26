@@ -1,0 +1,28 @@
+<div class="center__left">
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Список издателей</h1>
+        </div>
+        <?php if ( !empty( $data['publisher_list'] ) ) { ?>
+        <table>
+            <tr>
+                <th>Название</th><td>Издал книг</td>
+            </tr>
+            <?php foreach ($data['publisher_list'] as $publisher) { ?>
+            <tr>
+                <th><a href="/publisher/<?php echo $publisher['id']; ?>"><?php echo $publisher['name']; ?></a></th>
+                <td><?php echo $publisher['count_books']; ?></td>
+            </tr>
+            <?php } ?>
+        </table>
+        <?php } ?>
+    </div>
+</div>
+<div class="center__right">
+    <?php if ( !empty( $data['admin'] ) ) {  ?>
+    <div class="center__right__block">
+        <div class="right__block__header">Действия</div>
+        <a href="/admin/createPublisher" class="admin__right__button blue">Добавить издателя</a>
+    </div>
+    <?php } ?>
+</div>

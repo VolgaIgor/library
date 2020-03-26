@@ -1,0 +1,56 @@
+<div class="center__left">
+    <?php 
+    if ( !empty( $data['msg'] ) ) {
+        foreach ( $data['msg'] as $msg ) {
+            echo "<div class=\"center__left__block setting__msg {$msg['type']}\">{$msg['text']}</div>";
+        } 
+    }
+    ?>
+    <div class="center__left__block">
+        <div class="page__header">
+            <h1>Выдать книгу пользователю</h1>
+            <div class="page__header__back">
+                <a href="/bookInfo/<?php echo $data['book']->getId(); ?>">&lt; К книге</a>
+            </div>
+        </div>
+        <form method="post">
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Пользователь:</span>
+                    <span class="setting__name__desc"><a target="_blank" href="/admin/user_list">Список пользователей</a></span>
+                </div>
+                <div>
+                    <select name="user" required>
+                        <?php foreach ( $data['reader_list'] as $reader ) { ?>
+                        <option value="<?php echo $reader['id']; ?>"><?php echo $reader['login']; ?></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Книга:</span>
+                </div>
+                <div><a href="/bookInfo/<?php echo $data['book']->getID(); ?>" target="_blank"><?php echo $data['book']->getName(); ?></a></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Максимальное время аренды (в днях):</span>
+                </div>
+                <div><?php echo $data['category']->getExpirationDay(); ?></div>
+            </div>
+            <div class="setting__section__option">
+                <div class="setting__name">
+                    <span>Штраф за просрочку (в день):</span>
+                </div>
+                <div><?php echo $data['category']->getFinePerDay(); ?></div>
+            </div>
+            <?php if ( empty( $data['disabled'] ) ) { ?>
+            <div class="setting__section__save">
+                <input type="hidden" name="csrf_token" value="<?php if ($data['csrf']) echo $data['csrf']; ?>">
+                <button type="submit">Выдать</button>
+            </div>
+            <?php } ?>
+        </form>
+    </div>
+</div>

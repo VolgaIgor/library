@@ -1,0 +1,63 @@
+<div class="center__left">
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>Экземпляр книги</h1>
+            <div class="page__header__back">
+                <a href="/bookInfo/<?php echo $data['book_id']; ?>">&lt; К книге</a>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <th>ID копии: </th>
+                <td><?php echo $data['book_copy_id']; ?></td>
+            </tr>
+            <tr>
+                <th>Книга: </th>
+                <td><a href="/bookInfo/<?php echo $data['book_id']; ?>"><?php echo $data['book_name']; ?></a></td>
+            </tr>
+            <tr>
+                <th>Место размещения: </th>
+                <td><?php echo $data['book_copy_place']; ?></td>
+            </tr>
+            <tr>
+                <th>Доступна для выдачи: </th>
+                <td><?php echo ($data['book_copy_available']) ? 'Да' : 'Нет'; ?></td>
+            </tr>
+        </table>
+    </div>
+    <div class="center__left__block book__info">
+        <div class="page__header">
+            <h1>История выдачи</h1>
+        </div>
+        <table>
+            <tr>
+                <th>ID транзакции</th>
+                <th>Клиент</th>
+                <th>Дата выдачи</th>
+                <th>Дата возвращения</th>
+            </tr>
+            <?php if ( !empty( $data['book_copy_leases'] ) ) { ?>
+            <?php foreach ( $data['book_copy_leases'] as $lease ) { ?>
+            <tr>
+                <td><a href="/rentedInfo/<?php echo $lease['id']; ?>"><?php echo $lease['id']; ?></a></td>
+                <td><?php echo "<a href=\"/user/{$lease['client']->getId()}\">{$lease['client']->getLogin()}</a>"; ?></td>
+                <td><?php echo $lease['date_create']; ?></td>
+                <td><?php echo ( ( !empty( $lease['date_returned'] ) ) ? $lease['date_returned'] : 'Не возвращена' ); ?></td>
+            </tr>
+            <?php } ?>
+            <?php } ?>
+        </table>
+    </div>
+</div>
+<div class="center__right">
+    <div class="center__right__block"> 
+        <div class="right__block__header">Действия</div>
+        <a href="/admin/leaseBookCopy/<?php echo $data['book_copy_id']; ?>" class="admin__right__button blue">Выдать копию книги читателю</a>
+        <a href="/admin/editBookCopy/<?php echo $data['book_copy_id']; ?>" class="admin__right__button green">Редактировать информацию</a>
+        <a href="/admin/deleteBookCopy/<?php echo $data['book_copy_id']; ?>" class="admin__right__button red">Удалить копию книги</a>
+    </div>
+    <div class="center__right__block"> 
+        <div class="right__block__header"></div>
+        <a href="/admin/createBookCopy/<?php echo $data['book_id']; ?>" class="admin__right__button green">Добавить копию книги на склад</a>
+    </div>
+</div>
