@@ -9,8 +9,8 @@ This software has been tested on LAMP (Ubuntu 16.04, Apache, PHP 7.0, MariaDB 10
 # How to use
 - Upload the project files to the server directory
 - Enter database access data in the file `/system/confing.php`
-- Open the page `http://*domain*/install` in your browser
-- Delete `/install` folder
+- Enter the project folder paths in the file `/index.php`
+- Run the file `/db.sql` in the console or DBMS interface
 - ???
 - USE
 
