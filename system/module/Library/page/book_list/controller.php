@@ -7,9 +7,15 @@ class ControllerBookList extends Controller {
         $data = array();
         $data['title'] = 'Список книг в библиотеке — ' . PROJECT_NAME;
         
+        if ( empty( $this->env->request->get['sort'] ) ) {
+            $sort = 'count_down';
+        } else {
+            $sort = $this->env->request->get['sort'];
+        }
+        
         $data['book_list'] = array();
         if ( $this->model->load( 'book_list' ) ) {
-            $book_list = $this->model->book_list->get();
+            $book_list = $this->model->book_list->get( $sort );
             if ( !empty( $book_list ) ) {
                 foreach ($book_list as $book_item) {
                     $book = $book_item['book'];

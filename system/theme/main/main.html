@@ -19,7 +19,11 @@
             </div>
             <div id="header-nav">
                 <ul>
-                    <li></li>
+                    <li>
+                    <?php if ( $this->env->auth->isAuth() && $this->env->auth->getUser()->getPermissions()->checkPermission( 'admin_login' ) ) { ?>
+                        <a href="/admin">Админпанель</a>
+                    <?php } ?>
+                    </li>
                 </ul>
                 <div id="header-search">
                     <form method="get" action="/search">

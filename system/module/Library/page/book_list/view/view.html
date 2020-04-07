@@ -31,6 +31,24 @@
     </div>
 </div>
 <div class="center__right">
+    <div class="center__right__block">
+        <div class="right__block__header">Сортировка</div>
+        <div class="right_sort">
+            <a href="?sort=name_up" class="right_sort_up"></a>
+            <a href="?sort=name_down" class="right_sort_down"></a>
+            <div class="right_sort_name">По названию</div>
+        </div>
+        <div class="right_sort">
+            <a href="?sort=year_up" class="right_sort_up"></a>
+            <a href="?sort=year_down" class="right_sort_down"></a>
+            <div class="right_sort_name">По году</div>
+        </div>
+        <div class="right_sort">
+            <a href="?sort=count_up" class="right_sort_up"></a>
+            <a href="?sort=count_down" class="right_sort_down"></a>
+            <div class="right_sort_name">По наличию</div>
+        </div>
+    </div>
     <?php if ( !empty( $data['admin'] ) ) {  ?>
     <div class="center__right__block">
         <div class="right__block__header">Действия</div>

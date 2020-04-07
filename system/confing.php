@@ -3,9 +3,9 @@
     
     /* DB SETTING */
     define( 'DB_HOST', 'localhost' );
-    define( 'DB_USERNAME', 'test' );
-    define( 'DB_PASSWORD', 'test' );
-    define( 'DB_NAME', 'test' );
+    define( 'DB_USERNAME', 'bd_user' );
+    define( 'DB_PASSWORD', 'bd_pass' );
+    define( 'DB_NAME', 'bd_db' );
     
     define( 'PROJECT_NAME', 'Либрару' );
     define( 'PROJECT_PREFIX', 'lb' );
