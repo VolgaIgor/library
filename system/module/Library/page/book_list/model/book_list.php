@@ -2,28 +2,37 @@
 
 class ModelBookListBookList extends Model {
     
-    public function get( $sort = 'count_down' ) {
-        switch ( $sort ) {
-            case 'name_up':
-                $sortSql = 'ORDER BY `book`.`name` ASC';
-                break;
-            case 'name_down':
-                $sortSql = 'ORDER BY `book`.`name` DESC';
-                break;
-            case 'year_up':
-                $sortSql = 'ORDER BY `book`.`year` ASC';
-                break;
-            case 'year_down':
-                $sortSql = 'ORDER BY `book`.`year` DESC';
-                break;
-            case 'count_up':
-                $sortSql = 'ORDER BY `count_books` ASC';
-                break;
-            case 'count_down':
-                $sortSql = 'ORDER BY `count_books` DESC';
-                break;
-            default:
-                $sortSql = 'ORDER BY `count_books` DESC';
+    public function get( $sort = array() ) {
+        $sql_sort = array();
+        
+        if ( !empty( $sort['name'] ) ) {
+            if ( $sort['name'] == 'up' ) {
+                $sql_sort[] = '`book`.`name` ASC';
+            } else {
+                $sql_sort[] = '`book`.`name` DESC';
+            }
+        }
+        
+        if ( !empty( $sort['year'] ) ) {
+            if ( $sort['year'] == 'up' ) {
+                $sql_sort[] = '`book`.`year` ASC';
+            } else {
+                $sql_sort[] = '`book`.`year` DESC';
+            }
+        }
+        
+        if ( !empty( $sort['count'] ) ) {
+            if ( $sort['count'] == 'up' ) {
+                $sql_sort[] = '`count_books` ASC';
+            } else {
+                $sql_sort[] = '`count_books` DESC';
+            }
+        }
+        
+        if ( empty( $sql_sort ) ) {
+            $sql_sort = 'ORDER BY `count_books` DESC';
+        } else {
+            $sql_sort = 'ORDER BY ' . implode(',', $sql_sort);
         }
         
         $sql = "SELECT DISTINCT
@@ -33,7 +42,7 @@ FROM
   `book`
 LEFT JOIN
   `book_list` ON `book_list`.`book_id` = `book`.`id`
-GROUP BY `book`.`id` {$sortSql}";
+GROUP BY `book`.`id` {$sql_sort}";
         
         $result = DB::query( $sql );
         

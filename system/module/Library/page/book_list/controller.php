@@ -7,11 +7,109 @@ class ControllerBookList extends Controller {
         $data = array();
         $data['title'] = 'Список книг в библиотеке — ' . PROJECT_NAME;
         
-        if ( empty( $this->env->request->get['sort'] ) ) {
-            $sort = 'count_down';
+        $sort = array();
+        
+        $sort_button_link = array();
+        $sort_button_link['name_up'] = array();
+        $sort_button_link['name_down'] = array();
+        $sort_button_link['year_up'] = array();
+        $sort_button_link['year_down'] = array();
+        $sort_button_link['count_up'] = array();
+        $sort_button_link['count_down'] = array();
+        
+        if ( !empty( $this->env->request->get['sort_name'] ) ) {
+            if ( $this->env->request->get['sort_name'] == 'up' ) {
+                $sort['name'] = 'up';
+                
+                $sort_button_link['name_down'][] = 'sort_name=down';
+                
+                $sort_button_link['year_up'][] = 'sort_name=up';
+                $sort_button_link['year_down'][] = 'sort_name=up';
+                $sort_button_link['count_up'][] = 'sort_name=up';
+                $sort_button_link['count_down'][] = 'sort_name=up';
+            } else if ( $this->env->request->get['sort_name'] == 'down' ) {
+                $sort['name'] = 'down';
+                
+                $sort_button_link['name_up'][] = 'sort_name=up';
+                
+                $sort_button_link['year_up'][] = 'sort_name=down';
+                $sort_button_link['year_down'][] = 'sort_name=down';
+                $sort_button_link['count_up'][] = 'sort_name=down';
+                $sort_button_link['count_down'][] = 'sort_name=down';
+            } else {
+                $sort_button_link['name_down'][] = 'sort_name=down';
+                $sort_button_link['name_up'][] = 'sort_name=up';
+            }
         } else {
-            $sort = $this->env->request->get['sort'];
+            $sort_button_link['name_down'][] = 'sort_name=down';
+            $sort_button_link['name_up'][] = 'sort_name=up';
         }
+        
+        if ( !empty( $this->env->request->get['sort_year'] ) ) {
+            if ( $this->env->request->get['sort_year'] == 'up' ) {
+                $sort['year'] = 'up';
+                
+                $sort_button_link['year_down'][] = 'sort_year=down';
+                
+                $sort_button_link['name_up'][] = 'sort_year=up';
+                $sort_button_link['name_down'][] = 'sort_year=up';
+                $sort_button_link['count_up'][] = 'sort_year=up';
+                $sort_button_link['count_down'][] = 'sort_year=up';
+            } else if ( $this->env->request->get['sort_year'] == 'down' ) {
+                $sort['year'] = 'down';
+                
+                $sort_button_link['year_up'][] = 'sort_year=up';
+                
+                $sort_button_link['name_up'][] = 'sort_year=down';
+                $sort_button_link['name_down'][] = 'sort_year=down';
+                $sort_button_link['count_up'][] = 'sort_year=down';
+                $sort_button_link['count_down'][] = 'sort_year=down';
+            } else {
+                $sort_button_link['year_down'][] = 'sort_year=down';
+                $sort_button_link['year_up'][] = 'sort_year=up';
+            }
+        } else {
+            $sort_button_link['year_down'][] = 'sort_year=down';
+            $sort_button_link['year_up'][] = 'sort_year=up';
+        }
+        
+        if ( !empty( $this->env->request->get['sort_count'] ) ) {
+            if ( $this->env->request->get['sort_count'] == 'up' ) {
+                $sort['count'] = 'up';
+                
+                $sort_button_link['count_down'][] = 'sort_count=down';
+                
+                $sort_button_link['name_up'][] = 'sort_count=up';
+                $sort_button_link['name_down'][] = 'sort_count=up';
+                $sort_button_link['year_up'][] = 'sort_count=up';
+                $sort_button_link['year_down'][] = 'sort_count=up';
+            } else if ( $this->env->request->get['sort_count'] == 'down' ) {
+                $sort['count'] = 'down';
+                
+                $sort_button_link['count_up'][] = 'sort_count=up';
+                
+                $sort_button_link['name_up'][] = 'sort_count=down';
+                $sort_button_link['name_down'][] = 'sort_count=down';
+                $sort_button_link['year_up'][] = 'sort_count=down';
+                $sort_button_link['year_down'][] = 'sort_count=down';
+            } else {
+                $sort_button_link['count_down'][] = 'sort_count=down';
+                $sort_button_link['count_up'][] = 'sort_count=up';
+            }
+        } else {
+            $sort_button_link['count_down'][] = 'sort_count=down';
+            $sort_button_link['count_up'][] = 'sort_count=up';
+        }
+        
+        $sort_button_link['name_up'] = implode('&', $sort_button_link['name_up']);
+        $sort_button_link['name_down'] = implode('&', $sort_button_link['name_down']);
+        $sort_button_link['year_up'] = implode('&', $sort_button_link['year_up']);
+        $sort_button_link['year_down'] = implode('&', $sort_button_link['year_down']);
+        $sort_button_link['count_up'] = implode('&', $sort_button_link['count_up']);
+        $sort_button_link['count_down'] = implode('&', $sort_button_link['count_down']);
+        
+        $data['sort'] = $sort;
+        $data['sort_button_link'] = $sort_button_link;
         
         $data['book_list'] = array();
         if ( $this->model->load( 'book_list' ) ) {
